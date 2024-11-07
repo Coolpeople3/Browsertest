@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Browser</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        #browser-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #url-bar {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        #iframe-container {
+            flex-grow: 1;
+            overflow: hidden;
+            background-color: #fff;
+            border: 1px solid #ccc;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="browser-container">
+        <!-- URL bar -->
+        <input type="text" id="url-bar" placeholder="Enter a URL" onkeydown="checkEnter(event)" />
+
+        <!-- Frame where the page content will load -->
+        <div id="iframe-container">
+            <iframe id="browser-frame" src="https://www.google.com" title="Web Browser"></iframe>
+        </div>
+    </div>
+
+    <script>
+        function checkEnter(event) {
+            if (event.key === 'Enter') {
+                const url = document.getElementById('url-bar').value;
+                loadURL(url);
+            }
+        }
+
+        function loadURL(url) {
+            const iframe = document.getElementById('browser-frame');
+            // Ensure the URL starts with "http://" or "https://"
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                url = "http://" + url;
+            }
+            iframe.src = url;
+        }
+    </script>
+
+</body>
+</html>
